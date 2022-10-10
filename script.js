@@ -19,6 +19,19 @@ class ToDoList extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    fetch("https://fewd-todolist-api.onrender.com/tasks?api_key=9")
+      .then(checkStatus)
+      .then(json)
+      .then((response) => {
+        console.log(response);
+        this.setState({ tasks: response.tasks });
+      })
+      .catch(error => {
+        console.error(error.message);
+      })
+  }
+
   handleChange(event) {
     this.setState({ new_task: event.target.value });
   }
